@@ -3,20 +3,53 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Metodos {
+    Scanner sc = new Scanner(System.in);
 
+    //VALIDACIONES
+
+    public String validarLetras(String mensaje){
+        System.out.println(mensaje);
+        String dato = sc.nextLine();
+        if (dato.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+            return dato;
+        }
+
+        System.out.println("ERROR. Solo letras.");
+        return validarLetras(mensaje);
+    }
+
+    public double validarSalario(String mensaje) {
+        System.out.print(mensaje);
+        
+        if (sc.hasNextDouble()) {
+            double salario = sc.nextDouble();
+            sc.nextLine(); 
+
+            if (salario >= 0) {
+                return salario; 
+            } else {
+                System.out.println("ERROR. El salario no puede ser negativo.");
+            }
+        } else {
+            System.out.println("ERROR. Solo se permiten números.");
+            sc.next(); 
+            sc.nextLine(); 
+        }
+
+        return validarSalario(mensaje);
+    } 
+    
     public LinkedList<ObjEmpleado> IngresarRegistro (LinkedList<ObjEmpleado> lista){
         boolean continuar = true;
-        Scanner sc = new Scanner(System.in);
         int opt = 0;
         while (continuar) {
             ObjEmpleado o = new ObjEmpleado();
-            System.out.println("ingrese su nombre");
-            o.setNombre(sc.next());
-            System.out.println("ingrese su salario");
-            o.setSalario(sc.nextDouble());
+            o.setNombre(validarLetras("ingrese su nombre: "));
+            o.setSalario(validarSalario("ingrese su salario: "));
             lista.add(o);
             System.out.println("desea seguir ingresando datos. 1)Si  2)No ");
             opt = sc.nextInt();
+            sc.nextLine();
             if (opt == 2) {
                 continuar = false;
             }

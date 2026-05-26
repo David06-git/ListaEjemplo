@@ -15,13 +15,14 @@ public class Main {
             System.out.println("2: Mostrar Registros");
             System.out.println("3: Salir");
             opt = sc.nextInt();
+            sc.nextLine();
             switch (opt) {
                 case 1:
                     lista = m.IngresarRegistro(lista);
                     break;
 
                 case 2:
-                    m.Aumentos(lista);
+                    m.MostrarLista(lista);
                     break;
 
                 case 3:
